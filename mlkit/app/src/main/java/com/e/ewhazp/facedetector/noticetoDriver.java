@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
@@ -14,6 +15,8 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
+
+import com.google.firebase.samples.apps.mlkit.R;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,12 +33,13 @@ import java.util.Random;
 
 import static com.e.ewhazp.ChooserActivity.mcontext;
 
+
 public class noticetoDriver extends Activity {
     private static boolean isAlertRinging = false;
-
+    static MediaPlayer media;
     static ProgressDialog pd;
 
-    private static TextToSpeech tts;
+    //private static TextToSpeech tts;
     static Elements contents;
     static Document doc = null;
     static Date date = new Date();
@@ -44,17 +48,17 @@ public class noticetoDriver extends Activity {
     final static String url = "https://news.naver.com/main/list.nhn?mode=LS2D&mid=shm&sid2=269&sid1=100&date="+nowdate_s;
     private static List<String> plz = new ArrayList<>();
 
-    noticetoDriver ntd = new noticetoDriver();
+    static noticetoDriver ntd = new noticetoDriver();
     private static final String TAG = "noticetoDriver";
     //알람 모아놓기
     public static void ringingAlert(){
-
+        media = MediaPlayer.create(mcontext, R.raw.serenity);
+        //media.start();
         if(!isAlertRinging) { //현재 알람이 울리고 있지 않다면
             isAlertRinging = true;
             //소리알람 구현
-            //
-            //
-            //
+            media.start();
+
             Log.e(TAG,"ringringringring~~");
             CountDownTimer count10s = new CountDownTimer(10000,1000) {
                 @Override
@@ -74,11 +78,13 @@ public class noticetoDriver extends Activity {
         Log.e(TAG, "ringingAlert");
         //사용자가 설정한 소리 알람 중 하나를 무작위로 재생
     }
-    public static void randomCalling(final ProgressDialog pd){ //무작위로 전화하기 on일 때
+    public static void randomCalling(final ProgressDialog pd,final TextToSpeech tts){ //무작위로 전화하기 on일 때
         Log.e(TAG, "randomCalling");
         //IninPersonalSetting에서 정보 받아옴
         //음성 알림: 위험합니다! 15초 이후 등록된 연락처에서 무작위로 전화를 겁니다.
         String startcalling = "위험합니다! 15초 이후 등록된 연락처에서 무작위로 전화를 겁니다.";
+        tts.speak(startcalling,TextToSpeech.QUEUE_ADD, null);
+        tts.playSilence(2000, TextToSpeech.QUEUE_ADD, null);
         //15초 대기 시작 countdowntimer()
         //onFinish(): 50%의 확률로 전화걸기 or 꽝
         LoadContactsAyscn lca = new LoadContactsAyscn();
@@ -190,4 +196,5 @@ public class noticetoDriver extends Activity {
         }
 
     }
+
 }

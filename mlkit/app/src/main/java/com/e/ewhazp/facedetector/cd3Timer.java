@@ -53,18 +53,18 @@ public class cd3Timer extends CountDownTimer {
     @Override
     public void onFinish() {
         Log.e(TAG,"cd3Timer onFinish");
-        if(!cd3locked){ //5초 덜지남 cd3locked 구현
-            counttimes++;
-            if(state == 1) setState(2); //1단계에서 게슴츠레하게 뜬 상태로 3초 지속 시 2단계 진입, 3번 반복하면 3단계 진입
-            else if((state==2)&&(counttimes == 3)){ //2단계&&3번 울림
-                setState(3); //3단계 진입
-                counttimes = 0; //count 초기화
-            }
-            else if(counttimes == 3){ //3단계 이상&&3번 울림
-                setState(4); //4단계 진입
-                counttimes = 0; //count 초기화
-            }
-            count3sisRunning = false;
+        //5초 덜지남 cd3locked 구현
+        counttimes++;
+        if(state == 1) setState(2); //1단계에서 게슴츠레하게 뜬 상태로 3초 지속 시 2단계 진입, 3번 반복하면 3단계 진입
+        else if((state==2)&&(counttimes == 3)){ //2단계&&3번 울림
+            setState(3); //3단계 진입
+            counttimes = 0; //count 초기화
         }
+        else if(counttimes == 3){ //3단계 이상&&3번 울림
+            setState(4); //4단계 진입
+            counttimes = 0; //count 초기화
+        }
+        count3sisRunning = false;
+
     }
 }

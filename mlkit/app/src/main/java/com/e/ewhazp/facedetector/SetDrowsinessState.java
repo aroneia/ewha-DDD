@@ -1,31 +1,21 @@
 package com.e.ewhazp.facedetector;
 
 import android.app.ProgressDialog;
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.CountDownTimer;
+import android.speech.tts.TextToSpeech;
 
 import com.e.ewhazp.ChooserActivity;
-import com.google.firebase.samples.apps.mlkit.R;
 
 //EAR 값을 통해 졸음 상태 분석
 //운전자의 상태에 따라 알맞은 알람 기능 호출
-public class SetDrowsinessState extends AppCompatActivity {
+public class SetDrowsinessState  {
     private static final String TAG = "SetDrowsinessState";
     static SetDrowsinessState sds = new SetDrowsinessState();
     static ChooserActivity cc =new ChooserActivity();
+
     static ProgressDialog pd;
+    static TextToSpeech tts;
     static int state = 0;
-
-
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_activity);
-
-        //noticetoDriver.newstts(cc.tts);
-        noticetoDriver.randomCalling(pd);
-
-    }
 
 
     static double EAR = 0;
@@ -44,8 +34,9 @@ public class SetDrowsinessState extends AppCompatActivity {
     public static void reduceState(){state=-1;}
 
     public static void setState(final int st) {
-        noticetoDriver.newstts(cc.tts);
-        /*state = st;
+        //noticetoDriver.ringingAlert();
+        //noticetoDriver.randomCalling(pd, cc.tts);
+        state = st;
         switch (state){
                 case 2: //2단계 진입
                     noticetoDriver.ringingAlert(); //소리알람 울림
@@ -59,17 +50,17 @@ public class SetDrowsinessState extends AppCompatActivity {
                         @Override
                         public void onFinish() {
                             noticetoDriver.newstts(tts);
-                        }   //sds.newstts()
+                        }
                     };
                     count10s.start();
                         break;
                 case 4:
                 noticetoDriver.ringingAlert();
-                noticetoDriver.randomCalling();
+                noticetoDriver.randomCalling(pd,tts);
                 break;
             default: //꼭 써놔야 하는지...
                 break;
-        }*/
+        }
     }
     //@SuppressLint("StaticFieldLeak")
 

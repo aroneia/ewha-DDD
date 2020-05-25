@@ -41,7 +41,8 @@
         <activity
             android:name="com.e.ewhazp.facedetector.LivePreviewActivity"
             android:exported="true" />
-        <activity android:name="com.e.ewhazp.facedetector.SetDrowsinessState"/>
+
+
     </application>
 
 </manifest>

@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static android.util.Log.ERROR;
+import static com.e.ewhazp.facedetector.SetDrowsinessState.setState;
 
 /**
  * Demo app chooser which takes care of runtime permission requesting and allows you to pick from
@@ -112,8 +113,9 @@ public final class ChooserActivity extends AppCompatActivity
         randomcall.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Class<?> clicked = CLASSES[2];
-                startActivity(new Intent(getApplicationContext(),clicked));
+                //Class<?> clicked = CLASSES[2];
+                //startActivity(new Intent(getApplicationContext(),clicked));
+                setState(1);
             }
         });
 
